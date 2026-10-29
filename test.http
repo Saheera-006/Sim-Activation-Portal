@@ -1,0 +1,130 @@
+### 1. SIM validation (SIM 2 is inactive, so it returns offers)
+POST http://localhost:8080/api/sims/validate
+Content-Type: application/json
+
+{"simNumber":"1234567891235","serviceNumber":"1234567892"}
+
+### 1b. Already active SIM (expected: 409 SIM already active)
+POST http://localhost:8080/api/sims/validate
+Content-Type: application/json
+
+{"simNumber":"1234567891234","serviceNumber":"1234567891"}
+
+### 2. Basic details
+POST http://localhost:8080/api/customers/basic-validation
+Content-Type: application/json
+
+{"email":"bob@abc.com","dob":"1998-12-12"}
+
+### 3. Personal details
+POST http://localhost:8080/api/customers/personal-validation
+Content-Type: application/json
+
+{"firstName":"Bob","lastName":"Sam","confirmEmail":"bob@abc.com"}
+
+### 4. Update address
+PUT http://localhost:8080/api/customers/address
+Content-Type: application/json
+
+{"addressId":2,"uniqueIdNumber":"1234567891234568","address":"Vijaynagar","city":"Mysore","pincode":"570017","state":"Karnataka"}
+
+### 5. ID proof + activate SIM
+POST http://localhost:8080/api/customers/id-validation
+Content-Type: application/json
+
+{"uniqueIdNumber":"1234567891234568","firstName":"Bob","lastName":"Sam","dateOfBirth":"1998-12-12"}
+### E1. Bad SIM length -> Invalid details, please check again SIM number/Service number!
+POST http://localhost:8080/api/sims/validate
+Content-Type: application/json
+
+{"simNumber":"123456789123","serviceNumber":"1234567892"}
+
+### E2. Wrong SIM/service pair -> same message
+POST http://localhost:8080/api/sims/validate
+Content-Type: application/json
+
+{"simNumber":"1234567891235","serviceNumber":"1234567891"}
+
+### E3. Missing email -> Email/dob value is required
+POST http://localhost:8080/api/customers/basic-validation
+Content-Type: application/json
+
+{"email":"","dob":"1998-12-12"}
+
+### E4. Bad email -> Invalid email
+POST http://localhost:8080/api/customers/basic-validation
+Content-Type: application/json
+
+{"email":"bob@abc.comm","dob":"1998-12-12"}
+
+### E5. Unknown customer -> No request placed for you.
+POST http://localhost:8080/api/customers/basic-validation
+Content-Type: application/json
+
+{"email":"bob@abc.com","dob":"1990-01-01"}
+
+### E6. Name with digit -> Firstname/Lastname should be maximum of 15 characters
+POST http://localhost:8080/api/customers/personal-validation
+Content-Type: application/json
+
+{"firstName":"Bob1","lastName":"Sam","confirmEmail":"bob@abc.com"}
+
+### E7. Unknown name -> No customer found for the provided details
+POST http://localhost:8080/api/customers/personal-validation
+Content-Type: application/json
+
+{"firstName":"Tom","lastName":"Jerry","confirmEmail":"bob@abc.com"}
+
+### E8. Wrong confirm email -> Invalid email details!!
+POST http://localhost:8080/api/customers/personal-validation
+Content-Type: application/json
+
+{"firstName":"Bob","lastName":"Sam","confirmEmail":"wrong@abc.com"}
+
+### E9. Long address -> Address should be maximum of 25 characters
+PUT http://localhost:8080/api/customers/address
+Content-Type: application/json
+
+{"addressId":2,"address":"This address is definitely longer than 25","city":"Mysore","pincode":"570017","state":"Karnataka"}
+
+### E10. Bad pincode -> Pin should be 6 digit number
+PUT http://localhost:8080/api/customers/address
+Content-Type: application/json
+
+{"addressId":2,"address":"Vijaynagar","city":"Mysore","pincode":"57001","state":"Karnataka"}
+
+### E11. Special characters in city -> City/State should not contain any special characters except space
+PUT http://localhost:8080/api/customers/address
+Content-Type: application/json
+
+{"addressId":2,"address":"Vijaynagar","city":"Mysore@#","pincode":"570017","state":"Karnataka"}
+
+### E12. Add new address (no addressId) -> new row in CustomerAddress
+PUT http://localhost:8080/api/customers/address
+Content-Type: application/json
+
+{"address":"MG Road","city":"Chennai","pincode":"600001","state":"Tamil Nadu"}
+
+### E13. ID not 16 digits -> Id should be 16 digit
+POST http://localhost:8080/api/customers/id-validation
+Content-Type: application/json
+
+{"uniqueIdNumber":"123456789012345","firstName":"Bob","lastName":"Sam","dateOfBirth":"1998-12-12"}
+
+### E14. Wrong name -> Invalid details
+POST http://localhost:8080/api/customers/id-validation
+Content-Type: application/json
+
+{"uniqueIdNumber":"1234567891234568","firstName":"Rob","lastName":"Sam","dateOfBirth":"1998-12-12"}
+
+### E15. Wrong dob -> Incorrect date of birth details
+POST http://localhost:8080/api/customers/id-validation
+Content-Type: application/json
+
+{"uniqueIdNumber":"1234567891234568","firstName":"Bob","lastName":"Sam","dateOfBirth":"1999-01-01"}
+
+### E16. Missing field -> All fields are mandatory
+POST http://localhost:8080/api/customers/id-validation
+Content-Type: application/json
+
+{"uniqueIdNumber":"1234567891234568","firstName":"","lastName":"Sam","dateOfBirth":"1998-12-12"}

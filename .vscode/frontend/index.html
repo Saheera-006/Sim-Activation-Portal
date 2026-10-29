@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIM Activation Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="brand">SIM<span>Connect</span></div>
+        <div class="nav-label">SIM Activation Portal</div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">WELCOME TO SIMCONNECT</p>
+                <h1>Activate your SIM,<br>stay connected.</h1>
+                <p class="hero-text">Complete your verification steps to activate your SIM card securely.</p>
+            </div>
+            <div class="hero-icon">SIM</div>
+        </section>
+
+        <div class="progress-card">
+            <h2>SIM Activation Progress</h2>
+            <p id="progressText">0 of 5 steps completed</p>
+            <div class="progress-track">
+                <div id="progressBar" class="progress-fill"></div>
+            </div>
+
+            <div class="progress-steps">
+                <div class="progress-step" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-name">SIM Validation</span>
+                    <span class="step-status">Pending</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-name">Basic Details</span>
+                    <span class="step-status">Pending</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-name">Personal Details</span>
+                    <span class="step-status">Pending</span>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <span class="step-number">4</span>
+                    <span class="step-name">Address Details</span>
+                    <span class="step-status">Pending</span>
+                </div>
+                <div class="progress-step" data-step="5">
+                    <span class="step-number">5</span>
+                    <span class="step-name">ID Proof &amp; Activation</span>
+                    <span class="step-status">Pending</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="message" class="message hidden"></div>
+
+        <section class="form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STEP 01</p>
+                    <h2>SIM Verification</h2>
+                    <p>Enter your SIM number and service number.</p>
+                </div>
+                <div class="section-icon">01</div>
+            </div>
+
+            <form id="simForm">
+                <div class="field">
+                    <label for="simNumber">SIM Number</label>
+                    <input id="simNumber" name="simNumber" type="text"
+                        inputmode="numeric" maxlength="13"
+                        pattern="[0-9]{13}" title="Enter exactly 13 digits"
+                        placeholder="Enter 13-digit SIM number" required>
+                </div>
+                <div class="field">
+                    <label for="serviceNumber">Service Number</label>
+                    <input id="serviceNumber" name="serviceNumber" type="text"
+                        inputmode="numeric" maxlength="10"
+                        pattern="[0-9]{10}" title="Enter exactly 10 digits"
+                        placeholder="Enter 10-digit service number" required>
+                </div>
+                <button type="submit">Validate SIM <span>→</span></button>
+            </form>
+            <div id="offers" class="offers hidden"></div>
+        </section>
+
+        <section class="form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STEP 02</p>
+                    <h2>Basic Details</h2>
+                    <p>Verify your registered email and date of birth.</p>
+                </div>
+                <div class="section-icon">02</div>
+            </div>
+            <form id="basicForm">
+                <div class="field">
+                    <label for="email">Registered Email</label>
+                    <input id="email" name="email" type="email"
+                        placeholder="you@example.com" required>
+                </div>
+                <div class="field">
+                    <label for="dob">Date of Birth</label>
+                    <input id="dob" name="dob" type="date" required>
+                </div>
+                <button type="submit">Verify Basic Details <span>→</span></button>
+            </form>
+        </section>
+
+        <section class="form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STEP 03</p>
+                    <h2>Personal Details</h2>
+                    <p>Confirm your name and registered email.</p>
+                </div>
+                <div class="section-icon">03</div>
+            </div>
+            <form id="personalForm">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" name="firstName" maxlength="15"
+                            pattern="[A-Za-z]{1,15}"
+                            title="Use 1–15 English letters only"
+                            placeholder="First name" required>
+                    </div>
+                    <div class="field">
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" name="lastName" maxlength="15"
+                            pattern="[A-Za-z]{1,15}"
+                            title="Use 1–15 English letters only"
+                            placeholder="Last name" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="confirmEmail">Confirm Email</label>
+                    <input id="confirmEmail" name="confirmEmail" type="email"
+                        placeholder="Registered email" required>
+                </div>
+                <button type="submit">Verify Personal Details <span>→</span></button>
+            </form>
+        </section>
+
+        <section class="form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STEP 04</p>
+                    <h2>Address Details</h2>
+                    <p>Enter your address to add or update your record.</p>
+                </div>
+                <div class="section-icon">04</div>
+            </div>
+            <form id="addressForm">
+                <div class="field">
+                    <label for="addressId">Address ID (leave blank to add)</label>
+                    <input id="addressId" name="addressId" type="number" min="1"
+                        placeholder="Existing address ID, if any">
+                </div>
+                <div class="field">
+                    <label for="address">Address</label>
+                    <input id="address" name="address" maxlength="25"
+                        placeholder="Street or area" required>
+                </div>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="city">City</label>
+                        <input id="city" name="city"
+                            pattern="[A-Za-z ]+" title="Use letters and spaces only"
+                            placeholder="City" required>
+                    </div>
+                    <div class="field">
+                        <label for="pincode">Pincode</label>
+                        <input id="pincode" name="pincode" type="text"
+                            inputmode="numeric" maxlength="6"
+                            pattern="[0-9]{6}" title="Enter exactly 6 digits"
+                            placeholder="6-digit pincode" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="state">State</label>
+                    <input id="state" name="state"
+                        pattern="[A-Za-z ]+" title="Use letters and spaces only"
+                        placeholder="State" required>
+                </div>
+                <div class="field">
+                    <label for="addressUniqueId">Unique ID Number (if required)</label>
+                    <input id="addressUniqueId" name="uniqueIdNumber"
+                        inputmode="numeric" maxlength="16"
+                        pattern="[0-9]{16}" title="Enter exactly 16 digits"
+                        placeholder="Enter registered ID number">
+                </div>
+                <button type="submit">Save Address <span>→</span></button>
+            </form>
+        </section>
+
+        <section class="form-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STEP 05</p>
+                    <h2>ID Proof Verification</h2>
+                    <p>Verify your identity to complete SIM activation.</p>
+                </div>
+                <div class="section-icon">05</div>
+            </div>
+            <form id="idForm">
+                <div class="field">
+                    <label for="uniqueIdNumber">Unique ID Number</label>
+                    <input id="uniqueIdNumber" name="uniqueIdNumber" type="text"
+                        inputmode="numeric" maxlength="16"
+                        pattern="[0-9]{16}" title="Enter exactly 16 digits"
+                        placeholder="Enter 16-digit ID number" required>
+                </div>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="idFirstName">First Name</label>
+                        <input id="idFirstName" name="firstName" maxlength="15"
+                            pattern="[A-Za-z]{1,15}"
+                            title="Use 1–15 English letters only"
+                            placeholder="First name" required>
+                    </div>
+                    <div class="field">
+                        <label for="idLastName">Last Name</label>
+                        <input id="idLastName" name="lastName" maxlength="15"
+                            pattern="[A-Za-z]{1,15}"
+                            title="Use 1–15 English letters only"
+                            placeholder="Last name" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="idDob">Date of Birth</label>
+                    <input id="idDob" name="dateOfBirth" type="date" required>
+                </div>
+                <button type="submit">Verify ID &amp; Activate SIM <span>→</span></button>
+            </form>
+        </section>
+
+        <footer>
+            <p>SIMConnect · SIM Activation Portal</p>
+            <p>Secure verification powered by Spring Boot</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
