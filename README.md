@@ -102,21 +102,26 @@ The application exposes RESTful web services built with Java and Spring Boot, us
 
 ## Application Workflow
 
-```mermaid
 flowchart TD
-    A["Enter SIM & Service Numbers"] --> B["Validate SIM Details"]
+    A["Enter SIM and Service Numbers"] --> B["Validate SIM Details"]
     B --> C{"SIM Details Valid?"}
     C -- No --> X["Return Validation Error"]
     C -- Yes --> D["Retrieve SIM Offers"]
-    D --> E["Validate Customer Email & DOB"]
+    D --> E["Validate Customer Email and DOB"]
     E --> F["Validate Personal Details"]
     F --> G["Update Customer Address"]
     G --> H["Validate Identity Proof"]
     H --> I{"Identity Verified?"}
     I -- No --> Y["Return Validation Error"]
-    I -- Yes --> J["Update SIM Status to Active"]
+    I -- Yes --> J["Activate SIM"]
     J --> K["Return Success Response"]
-```
+
+    style A fill:#061A40,color:#FFFFFF,stroke:#007BFF
+    style D fill:#061A40,color:#FFFFFF,stroke:#007BFF
+    style J fill:#061A40,color:#FFFFFF,stroke:#007BFF
+    style K fill:#007BFF,color:#FFFFFF,stroke:#38BDF8
+    style X fill:#3B1118,color:#FFFFFF,stroke:#EF4444
+    style Y fill:#3B1118,color:#FFFFFF,stroke:#EF4444
 
 ## Database Design
 
